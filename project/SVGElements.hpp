@@ -50,5 +50,17 @@ namespace svg
         Point center;
         int radius;
     };
+
+    class Line : public SVGElement
+    {
+    public:
+        Line(const Color &stroke, const Point &start, const Point &end);
+        void draw(PNGImage &img) const override;
+
+    private:
+        Color stroke;
+        Point start;
+        Point end;
+    };
 }
 #endif
