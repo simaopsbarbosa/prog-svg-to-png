@@ -6,8 +6,8 @@
 Identify all group elements (numbers and names).
 
 - up202306609 Simão Barbosa
-- upXXXXX Name of element 2
-- upXXXXX Name of element 3
+- up202306606 Pedro Araújo
+- up202300401 Heitor Brandão
 
 
 ## Accomplished tasks
