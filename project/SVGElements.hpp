@@ -62,5 +62,18 @@ namespace svg
         Point start;
         Point end;
     };
+
+    // falta completar
+
+    // class Group : public SVGElement
+    // {
+    // public:
+    //     Group(const Color &stroke, const Point &start, const Point &end);
+    //     void draw(PNGImage &img) const override;
+
+    // private:
+    //     vector<SVGElement *> 
+    // };
+
 }
 #endif

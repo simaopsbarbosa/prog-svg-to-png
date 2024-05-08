@@ -22,6 +22,22 @@ namespace svg
         dimensions.y = xml_elem->IntAttribute("height");
         
         // TODO complete code -->
+        // POPULATING SVG_ELEMENTS VECTOR
+
+        // vai ser algo do genero disto i guess
+        // for (int i = 0; i < indentation; i++)
+        //     std::cout << " ";
+        //     std::cout << elem->Name() << " --> [";
+
+        // for (const XMLAttribute *attr = elem->FirstAttribute(); attr != nullptr; attr = attr->Next())
+        //     std::cout << " " << attr->Name() << "=\"" << attr->Value() << "\"";
+
+        // std::cout << " ] " << std::endl;
+
+        // for (XMLElement *child = elem->FirstChildElement(); child != nullptr; child = child->NextSiblingElement())
+        // {
+        //     dump(child, indentation + 2);
+        // }
         
     }
 }
