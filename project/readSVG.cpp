@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include "SVGElements.hpp"
 #include "external/tinyxml2/tinyxml2.h"
@@ -25,19 +24,15 @@ namespace svg
         // POPULATING SVG_ELEMENTS VECTOR
 
         // vai ser algo do genero disto i guess
-        // for (int i = 0; i < indentation; i++)
-        //     std::cout << " ";
-        //     std::cout << elem->Name() << " --> [";
 
-        // for (const XMLAttribute *attr = elem->FirstAttribute(); attr != nullptr; attr = attr->Next())
-        //     std::cout << " " << attr->Name() << "=\"" << attr->Value() << "\"";
-
-        // std::cout << " ] " << std::endl;
-
-        // for (XMLElement *child = elem->FirstChildElement(); child != nullptr; child = child->NextSiblingElement())
+        // for (XMLElement *child = xml_elem->FirstChildElement(); child != nullptr; child = child->NextSiblingElement())
         // {
-        //     dump(child, indentation + 2);
+        //     std::cout << child->Name() << endl;
         // }
         
     }
+}
+
+int main() {
+    return 0;
 }

@@ -65,15 +65,15 @@ namespace svg
 
     // falta completar
 
-    // class Group : public SVGElement
-    // {
-    // public:
-    //     Group(const Color &stroke, const Point &start, const Point &end);
-    //     void draw(PNGImage &img) const override;
+    class Group : public SVGElement
+    {
+    public:
+        Group(const Color &stroke, const Point &start, const Point &end);
+        void draw(PNGImage &img) const override;
 
-    // private:
-    //     vector<SVGElement *> 
-    // };
+    private:
+        std::vector<SVGElement> group_elements;
+    };
 
 }
 #endif
