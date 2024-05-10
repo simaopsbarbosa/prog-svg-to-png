@@ -1,0 +1,197 @@
+>>>> [1] batman <<<<
+pixel (0 0): expected 13 67 111 got 255 255 255
+>>>> [2] batman_2 <<<<
+pixel (100 100): expected 255 0 0 got 255 255 255
+>>>> [3] blank_1 <<<<
+>>>> [4] blank_2 <<<<
+>>>> [5] circle_1 <<<<
+pixel (50 100): expected 0 0 255 got 255 255 255
+>>>> [6] circle_2 <<<<
+pixel (5 100): expected 255 0 0 got 255 255 255
+>>>> [7] ellipse_1 <<<<
+here lies an elipse!
+0x6030000008b0
+pixel (5 10): expected 255 255 255 got 12 156 244
+>>>> [8] ellipse_2 <<<<
+here lies an elipse!
+0x6030000008b0
+here lies an elipse!
+0x6030000008b0
+0x6030000008e0
+here lies an elipse!
+0x6030000008b0
+0x6030000008e0
+0x603000000910
+here lies an elipse!
+0x6030000008b0
+0x6030000008e0
+0x603000000910
+0x603000000970
+here lies an elipse!
+0x6030000008b0
+0x6030000008e0
+0x603000000910
+0x603000000970
+0x6030000009a0
+here lies an elipse!
+0x6030000008b0
+0x6030000008e0
+0x603000000910
+0x603000000970
+0x6030000009a0
+0x6030000009d0
+pixel (5 10): expected 255 255 255 got 12 156 244
+>>>> [9] group_1 <<<<
+pixel (10 40): expected 255 0 0 got 255 255 255
+>>>> [10] group_2 <<<<
+pixel (0 25): expected 255 0 0 got 255 255 255
+>>>> [11] group_3 <<<<
+pixel (10 260): expected 255 0 0 got 255 255 255
+>>>> [12] group_4 <<<<
+pixel (10 260): expected 255 0 0 got 255 255 255
+>>>> [13] group_5 <<<<
+pixel (10 260): expected 255 0 0 got 255 255 255
+>>>> [14] group_6 <<<<
+pixel (10 10): expected 255 0 0 got 255 255 255
+>>>> [15] group_7 <<<<
+pixel (36 80): expected 255 0 0 got 255 255 255
+>>>> [16] line_1 <<<<
+pixel (1 1): expected 0 255 0 got 255 255 255
+>>>> [17] line_2 <<<<
+pixel (0 0): expected 0 0 0 got 255 255 255
+>>>> [18] lion <<<<
+pixel (0 0): expected 0 255 0 got 255 255 255
+>>>> [19] polygon_1 <<<<
+pixel (0 0): expected 255 0 0 got 255 255 255
+>>>> [20] polygon_2 <<<<
+pixel (50 50): expected 255 255 0 got 255 255 255
+>>>> [21] polyline_1 <<<<
+pixel (1 1): expected 0 0 255 got 255 255 255
+>>>> [22] polyline_2 <<<<
+pixel (10 10): expected 0 0 255 got 255 255 255
+>>>> [23] polyline_3 <<<<
+pixel (220 306): expected 122 51 111 got 255 255 255
+>>>> [24] rect_1 <<<<
+pixel (0 0): expected 0 0 255 got 255 255 255
+>>>> [25] rect_2 <<<<
+pixel (10 10): expected 255 0 0 got 255 255 255
+>>>> [26] rect_3 <<<<
+pixel (30 32): expected 255 0 0 got 255 255 255
+>>>> [27] rotate_circle <<<<
+pixel (21 212): expected 255 0 0 got 255 255 255
+>>>> [28] rotate_circle_with_origin <<<<
+pixel (80 300): expected 240 240 240 got 255 255 255
+>>>> [29] rotate_line <<<<
+pixel (0 0): expected 255 255 0 got 255 255 255
+>>>> [30] rotate_line_with_origin <<<<
+pixel (41 66): expected 0 255 0 got 255 255 255
+>>>> [31] rotate_polygon <<<<
+pixel (58 41): expected 255 0 0 got 255 255 255
+>>>> [32] rotate_polygon_with_origin <<<<
+pixel (16 143): expected 0 0 255 got 255 255 255
+>>>> [33] rotate_polyline <<<<
+pixel (16 23): expected 0 255 0 got 255 255 255
+>>>> [34] rotate_polyline_with_origin <<<<
+pixel (10 10): expected 0 0 255 got 255 255 255
+>>>> [35] rotate_rect <<<<
+pixel (6 252): expected 0 0 255 got 255 255 255
+>>>> [36] rotate_rect_with_origin <<<<
+pixel (14 113): expected 0 255 0 got 255 255 255
+>>>> [37] scale_circle <<<<
+pixel (10 30): expected 0 0 0 got 255 255 255
+>>>> [38] scale_circle_with_origin <<<<
+pixel (100 300): expected 0 0 255 got 255 255 255
+>>>> [39] scale_ellipse <<<<
+here lies an elipse!
+0x6030000009d0
+here lies an elipse!
+0x6030000009d0
+0x603000000a00
+here lies an elipse!
+0x6030000009d0
+0x603000000a00
+0x603000000a30
+here lies an elipse!
+0x6030000009d0
+0x603000000a00
+0x603000000a30
+0x603000000a90
+pixel (5 10): expected 255 255 255 got 12 156 244
+>>>> [40] scale_ellipse_with_origin <<<<
+here lies an elipse!
+0x603000000970
+here lies an elipse!
+0x603000000970
+0x6030000009a0
+here lies an elipse!
+0x603000000970
+0x6030000009a0
+0x6030000009d0
+here lies an elipse!
+0x603000000970
+0x6030000009a0
+0x6030000009d0
+0x603000000a30
+here lies an elipse!
+0x603000000970
+0x6030000009a0
+0x6030000009d0
+0x603000000a30
+0x603000000a60
+pixel (5 10): expected 255 255 255 got 12 156 244
+>>>> [41] scale_line <<<<
+pixel (100 100): expected 255 0 0 got 255 255 255
+>>>> [42] scale_line_with_origin <<<<
+pixel (50 50): expected 255 0 0 got 255 255 255
+>>>> [43] scale_polygon <<<<
+pixel (25 25): expected 255 0 0 got 255 255 255
+>>>> [44] scale_polygon_with_origin <<<<
+pixel (50 50): expected 255 255 0 got 255 255 255
+>>>> [45] scale_polyline <<<<
+pixel (20 20): expected 255 0 0 got 255 255 255
+>>>> [46] scale_polyline_with_origin <<<<
+pixel (20 160): expected 0 255 0 got 255 255 255
+>>>> [47] scale_rect <<<<
+pixel (0 0): expected 0 0 0 got 255 255 255
+>>>> [48] scale_rect_with_origin <<<<
+pixel (55 50): expected 0 255 0 got 255 255 255
+>>>> [49] transform_several <<<<
+pixel (0 0): expected 255 0 0 got 255 255 255
+>>>> [50] translate_circle <<<<
+pixel (0 25): expected 0 255 0 got 255 255 255
+>>>> [51] translate_ellipse <<<<
+here lies an elipse!
+0x603000000b50
+here lies an elipse!
+0x603000000b50
+0x603000000b80
+here lies an elipse!
+0x603000000b50
+0x603000000b80
+0x603000000bb0
+here lies an elipse!
+0x603000000b50
+0x603000000b80
+0x603000000bb0
+0x603000000c10
+pixel (5 10): expected 255 255 255 got 12 156 244
+>>>> [52] translate_line <<<<
+pixel (51 1): expected 255 0 0 got 255 255 255
+>>>> [53] translate_polygon <<<<
+pixel (0 0): expected 255 0 0 got 255 255 255
+>>>> [54] translate_polyline <<<<
+pixel (10 10): expected 0 0 255 got 255 255 255
+>>>> [55] translate_rect <<<<
+pixel (5 5): expected 0 255 0 got 255 255 255
+>>>> [56] use_1 <<<<
+pixel (1 5): expected 255 0 0 got 255 255 255
+>>>> [57] use_2 <<<<
+pixel (15 40): expected 255 0 0 got 255 255 255
+>>>> [58] use_3 <<<<
+pixel (0 250): expected 255 0 0 got 255 255 255
+>>>> [59] use_4 <<<<
+pixel (0 0): expected 255 0 0 got 255 255 255
+>>>> [60] use_5 <<<<
+pixel (51 51): expected 0 255 0 got 255 255 255
+>>>> [61] use_6 <<<<
+pixel (0 0): expected 0 0 0 got 255 255 255

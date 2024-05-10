@@ -1,6 +1,7 @@
 #include <iostream>
 #include "SVGElements.hpp"
 #include "external/tinyxml2/tinyxml2.h"
+#include <string.h>
 
 using namespace std;
 using namespace tinyxml2;
@@ -21,18 +22,34 @@ namespace svg
         dimensions.y = xml_elem->IntAttribute("height");
         
         // TODO complete code -->
+        
         // POPULATING SVG_ELEMENTS VECTOR
 
         // vai ser algo do genero disto i guess
 
-        // for (XMLElement *child = xml_elem->FirstChildElement(); child != nullptr; child = child->NextSiblingElement())
-        // {
-        //     std::cout << child->Name() << endl;
-        // }
-        
-    }
-}
+        for (XMLElement *child = xml_elem->FirstChildElement(); child != nullptr; child = child->NextSiblingElement())
+        {
+            if (strcmp(child->Name(), "ellipse") == 0) {
+                std::cout << "found ellipse" << std::endl;
+                Color cor;
+                cor.blue = 244;
+                cor.red = 12;
+                cor.green = 156;
 
-int main() {
-    return 0;
+                Point centro;
+                centro.x = 10;
+                centro.y = 10;
+
+                Point radius;
+                radius.x = 5;
+                radius.y = 3;
+
+                // isto funciona (amen)
+                Ellipse *elem = new Ellipse(cor, centro, radius);
+                svg_elements.push_back(elem);
+
+                // TODO get ellipse arguments
+            }
+        }
+    }
 }
