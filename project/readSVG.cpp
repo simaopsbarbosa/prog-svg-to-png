@@ -31,24 +31,48 @@ namespace svg
         {
             if (strcmp(child->Name(), "ellipse") == 0) {
                 std::cout << "found ellipse" << std::endl;
-                Color cor;
-                cor.blue = 244;
-                cor.red = 12;
-                cor.green = 156;
 
-                Point centro;
-                centro.x = 10;
-                centro.y = 10;
+                Color color;
+                Point center, radius;
 
-                Point radius;
-                radius.x = 5;
-                radius.y = 3;
+                // for (const XMLAttribute *attr = child->FirstAttribute(); attr != nullptr; attr = attr->Next())
+
+                const XMLAttribute *attr = child->FirstAttribute(); // cx
+                const char* cx = attr->Value();
+                int cx_int = stoi(cx);
+
+                attr = attr->Next(); // cy
+                const char* cy = attr->Value();
+                int cy_int = stoi(cy);
+
+                center.x = cx_int;
+                center.y = cy_int;
+
+                attr = attr->Next(); // rx
+                const char* rx = attr->Value();
+                int rx_int = stoi(rx);
+
+                attr = attr->Next(); // ry
+                const char* ry = attr->Value();
+                int ry_int = stoi(ry);
+
+                radius.x = rx_int;
+                radius.y = ry_int;
+
+                attr = attr->Next(); // fill
+                const char* color_str = attr->Value();
+                color = parse_color(color_str);
+
+                // 1: cx="100"
+                // 2: cy="100"
+                // 3: rx="95"
+                // 4: ry="20"
+                // 5: fill="red"
 
                 // isto funciona (amen)
-                Ellipse *elem = new Ellipse(cor, centro, radius);
+                Ellipse *elem = new Ellipse(color, center, radius);
                 svg_elements.push_back(elem);
 
-                // TODO get ellipse arguments
             }
         }
     }

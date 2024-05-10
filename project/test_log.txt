@@ -9,38 +9,14 @@ pixel (50 100): expected 0 0 255 got 255 255 255
 >>>> [6] circle_2 <<<<
 pixel (5 100): expected 255 0 0 got 255 255 255
 >>>> [7] ellipse_1 <<<<
-here lies an elipse!
-0x6030000008b0
-pixel (5 10): expected 255 255 255 got 12 156 244
+found ellipse
 >>>> [8] ellipse_2 <<<<
-here lies an elipse!
-0x6030000008b0
-here lies an elipse!
-0x6030000008b0
-0x6030000008e0
-here lies an elipse!
-0x6030000008b0
-0x6030000008e0
-0x603000000910
-here lies an elipse!
-0x6030000008b0
-0x6030000008e0
-0x603000000910
-0x603000000970
-here lies an elipse!
-0x6030000008b0
-0x6030000008e0
-0x603000000910
-0x603000000970
-0x6030000009a0
-here lies an elipse!
-0x6030000008b0
-0x6030000008e0
-0x603000000910
-0x603000000970
-0x6030000009a0
-0x6030000009d0
-pixel (5 10): expected 255 255 255 got 12 156 244
+found ellipse
+found ellipse
+found ellipse
+found ellipse
+found ellipse
+found ellipse
 >>>> [9] group_1 <<<<
 pixel (10 40): expected 255 0 0 got 255 255 255
 >>>> [10] group_2 <<<<
@@ -102,43 +78,15 @@ pixel (10 30): expected 0 0 0 got 255 255 255
 >>>> [38] scale_circle_with_origin <<<<
 pixel (100 300): expected 0 0 255 got 255 255 255
 >>>> [39] scale_ellipse <<<<
-here lies an elipse!
-0x6030000009d0
-here lies an elipse!
-0x6030000009d0
-0x603000000a00
-here lies an elipse!
-0x6030000009d0
-0x603000000a00
-0x603000000a30
-here lies an elipse!
-0x6030000009d0
-0x603000000a00
-0x603000000a30
-0x603000000a90
-pixel (5 10): expected 255 255 255 got 12 156 244
+found ellipse
+found ellipse
+found ellipse
+found ellipse
+pixel (20 60): expected 255 0 0 got 255 255 255
 >>>> [40] scale_ellipse_with_origin <<<<
-here lies an elipse!
-0x603000000970
-here lies an elipse!
-0x603000000970
-0x6030000009a0
-here lies an elipse!
-0x603000000970
-0x6030000009a0
-0x6030000009d0
-here lies an elipse!
-0x603000000970
-0x6030000009a0
-0x6030000009d0
-0x603000000a30
-here lies an elipse!
-0x603000000970
-0x6030000009a0
-0x6030000009d0
-0x603000000a30
-0x603000000a60
-pixel (5 10): expected 255 255 255 got 12 156 244
+found ellipse
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  map::at
 >>>> [41] scale_line <<<<
 pixel (100 100): expected 255 0 0 got 255 255 255
 >>>> [42] scale_line_with_origin <<<<
@@ -160,21 +108,11 @@ pixel (0 0): expected 255 0 0 got 255 255 255
 >>>> [50] translate_circle <<<<
 pixel (0 25): expected 0 255 0 got 255 255 255
 >>>> [51] translate_ellipse <<<<
-here lies an elipse!
-0x603000000b50
-here lies an elipse!
-0x603000000b50
-0x603000000b80
-here lies an elipse!
-0x603000000b50
-0x603000000b80
-0x603000000bb0
-here lies an elipse!
-0x603000000b50
-0x603000000b80
-0x603000000bb0
-0x603000000c10
-pixel (5 10): expected 255 255 255 got 12 156 244
+found ellipse
+found ellipse
+found ellipse
+found ellipse
+pixel (5 25): expected 0 255 0 got 0 0 255
 >>>> [52] translate_line <<<<
 pixel (51 1): expected 255 0 0 got 255 255 255
 >>>> [53] translate_polygon <<<<
