@@ -45,5 +45,14 @@ namespace svg
         img.draw_line(start, end, stroke);
     }
 
+    Polygon::Polygon(const std::vector<Point> &points, 
+                     const Color &fill)
+        : points(points), fill(fill)
+    {
+    }
+    void Polygon::draw(PNGImage &img) const
+    {
+        img.draw_polygon(points, fill);
+    }
 
 }

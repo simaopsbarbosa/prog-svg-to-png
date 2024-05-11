@@ -63,17 +63,15 @@ namespace svg
         Point end;
     };
 
-    // falta completar
-
-    class Group : public SVGElement
+    class Polygon : public SVGElement
     {
     public:
-        Group(const Color &stroke, const Point &start, const Point &end);
+        Polygon(const std::vector<Point> &points, const Color &fill);
         void draw(PNGImage &img) const override;
 
     private:
-        std::vector<SVGElement> group_elements;
+        std::vector<Point> points;
+        Color fill;
     };
-
 }
 #endif

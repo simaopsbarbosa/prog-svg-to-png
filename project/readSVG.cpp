@@ -142,8 +142,6 @@ namespace svg
                         c = ' ';
                     }
                 }
-                
-                std::cout << "all ok 1 " << std::endl;
 
                 // separar valores e push_back para numbers
                 std::stringstream ss(points_str);
@@ -152,13 +150,9 @@ namespace svg
                 while (ss >> num) {
                     numbers.push_back(num);
                 }
-                
-                std::cout << "all ok 2 " << std::endl;
 
                 std::string color_str = attributes["stroke"];
                 Color color = parse_color(color_str);
-                
-                std::cout << "all ok 3 " << std::endl;
 
                 for (long unsigned int i = 0; i < numbers.size() - 3; i+=2) {
                     std::cout << "[DEBUG] point " << numbers[i] << ", " << numbers[i+1] << std::endl;
@@ -167,6 +161,44 @@ namespace svg
                     Line *elem = new Line(color, start, end);
                     svg_elements.push_back(elem);
                 }
+            }
+
+            // POLYGON
+            if (strcmp(child->Name(), "polygon") == 0) {
+                // 1: points="0,0 0,399 399,399, 399,199" 
+                // 2: fill="red"
+
+                std::string points_str = attributes["points"];
+                std::cout << points_str << std::endl;
+
+                // substituir virgulas com espaços
+                for (char& c : points_str) {
+                    if (c == ',') {
+                        c = ' ';
+                    }
+                }
+
+                // separar valores e push_back para numbers
+                std::stringstream ss(points_str);
+                int num;
+                std::vector<int> numbers;
+                while (ss >> num) {
+                    numbers.push_back(num);
+                }
+
+                vector<Point> points;
+                for (unsigned int i = 0; i < numbers.size() - 1; i+=2) {
+                    Point point = {numbers[i], numbers[i+1]};
+                    points.push_back(point);
+                }
+
+                std::cout << "funciona ate aqui" << "\n";
+
+                std::string color_str = attributes["fill"];
+                Color color = parse_color(color_str);
+
+                Polygon *elem = new Polygon(points, color);
+                svg_elements.push_back(elem);
             }
         }
     }
