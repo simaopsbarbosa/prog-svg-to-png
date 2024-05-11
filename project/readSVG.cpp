@@ -134,7 +134,6 @@ namespace svg
                 // 2: fill="red"
 
                 std::string points_str = attributes["points"];
-                std::cout << points_str << std::endl;
 
                 // substituir virgulas com espaços
                 for (char& c : points_str) {
@@ -155,7 +154,6 @@ namespace svg
                 Color color = parse_color(color_str);
 
                 for (long unsigned int i = 0; i < numbers.size() - 3; i+=2) {
-                    std::cout << "[DEBUG] point " << numbers[i] << ", " << numbers[i+1] << std::endl;
                     Point start = {numbers[i], numbers[i+1]};
                     Point end = {numbers[i+2], numbers[i+3]};
                     Line *elem = new Line(color, start, end);
@@ -169,7 +167,6 @@ namespace svg
                 // 2: fill="red"
 
                 std::string points_str = attributes["points"];
-                std::cout << points_str << std::endl;
 
                 // substituir virgulas com espaços
                 for (char& c : points_str) {
@@ -192,10 +189,36 @@ namespace svg
                     points.push_back(point);
                 }
 
-                std::cout << "funciona ate aqui" << "\n";
-
                 std::string color_str = attributes["fill"];
                 Color color = parse_color(color_str);
+
+                Polygon *elem = new Polygon(points, color);
+                svg_elements.push_back(elem);
+            }
+
+            // RECT
+            if (strcmp(child->Name(), "rect") == 0) {
+                // 1: x="0" 
+                // 2: y="0" 
+                // 3: fill="blue" 
+                // 4: width="400" 
+                // 5: height="600"
+
+                std::string color_str = attributes["fill"]; // get color
+                cout << "[DEBUG] color: " << color_str << '\n';
+                Color color = parse_color(color_str);
+
+                int x = stoi(attributes["x"]); // get x
+                int y = stoi(attributes["y"]); // get y
+
+                int width_rect = stoi(attributes["width"]) -1; // get width
+                int height_rect = stoi(attributes["height"]) -1; // get height
+
+                vector<Point> points;
+                points.push_back({x,y});
+                points.push_back({x+width_rect,y});
+                points.push_back({x+width_rect,y+height_rect});
+                points.push_back({x,y+height_rect});
 
                 Polygon *elem = new Polygon(points, color);
                 svg_elements.push_back(elem);
