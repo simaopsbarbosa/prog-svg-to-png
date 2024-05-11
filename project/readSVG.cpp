@@ -1,5 +1,6 @@
 #include <iostream>
 #include <map> 
+#include <sstream>
 #include "SVGElements.hpp"
 #include "external/tinyxml2/tinyxml2.h"
 #include <string.h>
@@ -31,7 +32,6 @@ namespace svg
             for (const XMLAttribute *attr = child->FirstAttribute(); attr != nullptr; attr = attr->Next()) {
                 std::string attr_name = attr->Name();
                 std::string attr_value = attr->Value();
-                std::cout << "[DEBUG] Key-Value pair is: " << attr_name << " -> " << attr_value << std::endl;
                 attributes[attr_name] = attr_value;
             }
 
@@ -126,6 +126,47 @@ namespace svg
 
                 Line *elem = new Line(color, start, end);
                 svg_elements.push_back(elem);
+            }
+
+            // POLYLINE
+            if (strcmp(child->Name(), "polyline") == 0) {
+                // 1: points="0,0 0,399 399,399, 399,199" 
+                // 2: fill="red"
+
+                std::string points_str = attributes["points"];
+                std::cout << points_str << std::endl;
+
+                // substituir virgulas com espaços
+                for (char& c : points_str) {
+                    if (c == ',') {
+                        c = ' ';
+                    }
+                }
+                
+                std::cout << "all ok 1 " << std::endl;
+
+                // separar valores e push_back para numbers
+                std::stringstream ss(points_str);
+                int num;
+                std::vector<int> numbers;
+                while (ss >> num) {
+                    numbers.push_back(num);
+                }
+                
+                std::cout << "all ok 2 " << std::endl;
+
+                std::string color_str = attributes["stroke"];
+                Color color = parse_color(color_str);
+                
+                std::cout << "all ok 3 " << std::endl;
+
+                for (long unsigned int i = 0; i < numbers.size() - 3; i+=2) {
+                    std::cout << "[DEBUG] point " << numbers[i] << ", " << numbers[i+1] << std::endl;
+                    Point start = {numbers[i], numbers[i+1]};
+                    Point end = {numbers[i+2], numbers[i+3]};
+                    Line *elem = new Line(color, start, end);
+                    svg_elements.push_back(elem);
+                }
             }
         }
     }
