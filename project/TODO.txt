@@ -1,5 +1,0 @@
-todo: 
-
-terminar todas as formas geometricas em SVGElements.cpp;
-popular svg_elements em readSVG.cpp;
-arrumar comentários e formatar codigo;

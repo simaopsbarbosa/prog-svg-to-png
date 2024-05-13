@@ -27,6 +27,8 @@ namespace svg
 
         for (XMLElement *child = xml_elem->FirstChildElement(); child != nullptr; child = child->NextSiblingElement())
         {
+            
+            
             // get attributes
             std::map<std::string, std::string> attributes;
             for (const XMLAttribute *attr = child->FirstAttribute(); attr != nullptr; attr = attr->Next()) {
@@ -205,7 +207,6 @@ namespace svg
                 // 5: height="600"
 
                 std::string color_str = attributes["fill"]; // get color
-                cout << "[DEBUG] color: " << color_str << '\n';
                 Color color = parse_color(color_str);
 
                 int x = stoi(attributes["x"]); // get x
@@ -223,6 +224,7 @@ namespace svg
                 Polygon *elem = new Polygon(points, color);
                 svg_elements.push_back(elem);
             }
+        
         }
     }
 }
