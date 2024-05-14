@@ -27,45 +27,25 @@ namespace svg
 
         for (XMLElement *child = xml_elem->FirstChildElement(); child != nullptr; child = child->NextSiblingElement())
         {
-            
-            
-            // get attributes
-            std::map<std::string, std::string> attributes;
-            for (const XMLAttribute *attr = child->FirstAttribute(); attr != nullptr; attr = attr->Next()) {
-                std::string attr_name = attr->Name();
-                std::string attr_value = attr->Value();
-                attributes[attr_name] = attr_value;
-            }
-
             // ELLIPSE
             if (strcmp(child->Name(), "ellipse") == 0) {
-                // 1: cx="100"
-                // 2: cy="100"
-                // 3: rx="95"
-                // 4: ry="20"
-                // 5: fill="red"
-                
-                std::string cx = attributes["cx"];
-                int cx_int = stoi(cx);
 
-                std::string cy = attributes["cy"];
-                int cy_int = stoi(cy);
+                // exemplo:
+                    // 1: cx="100"
+                    // 2: cy="100"
+                    // 3: rx="95"
+                    // 4: ry="20"
+                    // 5: fill="red"
 
-                Point center, radius;
-                center.x = cx_int;
-                center.y = cy_int;
+                Point center;
+                center.x = child->IntAttribute("cx");
+                center.y = child->IntAttribute("cy");
 
-                std::string rx = attributes["rx"];
-                int rx_int = stoi(rx);
+                Point radius;
+                radius.x = child->IntAttribute("rx");
+                radius.y = child->IntAttribute("ry");
 
-                std::string ry = attributes["ry"];
-                int ry_int = stoi(ry);
-
-                radius.x = rx_int;
-                radius.y = ry_int;
-
-                std::string color_str = attributes["fill"];
-                Color color = parse_color(color_str);
+                Color color = parse_color(child->Attribute("fill"));
 
                 // dynamically allocate new ellipse
                 Ellipse *elem = new Ellipse(color, center, radius);
@@ -75,67 +55,63 @@ namespace svg
 
             // CIRCLE
             if (strcmp(child->Name(), "circle") == 0) {
-                // 1: cx="100"
-                // 2: cy="100"
-                // 3: r="95"
-                // 5: fill="red"
 
-                std::string cx = attributes["cx"];
-                int cx_int = stoi(cx);
-
-                std::string cy = attributes["cy"];
-                int cy_int = stoi(cy);
-
+                // exemplo:
+                    // 1: cx="100"
+                    // 2: cy="100"
+                    // 3: r="95"
+                    // 5: fill="red"
+                
                 Point center;
-                center.x = cx_int;
-                center.y = cy_int;
+                center.x = child->IntAttribute("cx");
+                center.y = child->IntAttribute("cy");
 
-                std::string radius_str = attributes["r"];
-                int radius = stoi(radius_str);
+                Point radius;
+                radius.x = child->IntAttribute("r");
+                radius.y = radius.x;
 
-                std::string color_str = attributes["fill"];
-                Color color = parse_color(color_str);
+                Color color = parse_color(child->Attribute("fill"));
 
-                Circle *elem = new Circle(color, center, radius);
+                // dynamically allocate new ellipse
+                Ellipse *elem = new Ellipse(color, center, radius);
+                // push ellipse into svg_elements vector
                 svg_elements.push_back(elem);
             }
 
             // LINE
             if (strcmp(child->Name(), "line") == 0) {
-                // 1: x1="1"
-                // 2: y1="198"
-                // 3: x2="1"
-                // 4: y2="1"
-                // 5: stroke="red"
 
-                std::string x1 = attributes["x1"];
-                int x1_int = stoi(x1);
+                // exemplo:
+                    // 1: x1="1"
+                    // 2: y1="198"
+                    // 3: x2="1"
+                    // 4: y2="1"
+                    // 5: stroke="red"
 
-                std::string y1 = attributes["y1"];
-                int y1_int = stoi(y1);
+                Point start;
+                start.x = child->IntAttribute("x1");
+                start.y = child->IntAttribute("y1");
 
-                std::string x2 = attributes["x2"];
-                int x2_int = stoi(x2);
+                Point end;
+                end.x = child->IntAttribute("x2");
+                end.y = child->IntAttribute("y2");
 
-                std::string y2 = attributes["y2"];
-                int y2_int = stoi(y2);
+                Color color = parse_color(child->Attribute("stroke"));
 
-                std::string color_str = attributes["stroke"];
-                Color color = parse_color(color_str);
-
-                Point start = {x1_int,y1_int};
-                Point end = {x2_int,y2_int};
-
+                // dynamically allocate new line
                 Line *elem = new Line(color, start, end);
+                // push line into svg_elements vector
                 svg_elements.push_back(elem);
             }
 
             // POLYLINE
             if (strcmp(child->Name(), "polyline") == 0) {
-                // 1: points="0,0 0,399 399,399, 399,199" 
-                // 2: fill="red"
 
-                std::string points_str = attributes["points"];
+                // exemplo:
+                    // 1: points="0,0 0,399 399,399, 399,199" 
+                    // 2: fill="red"
+
+                std::string points_str = child->Attribute("points");
 
                 // substituir virgulas com espaços
                 for (char& c : points_str) {
@@ -143,7 +119,6 @@ namespace svg
                         c = ' ';
                     }
                 }
-
                 // separar valores e push_back para numbers
                 std::stringstream ss(points_str);
                 int num;
@@ -152,23 +127,27 @@ namespace svg
                     numbers.push_back(num);
                 }
 
-                std::string color_str = attributes["stroke"];
-                Color color = parse_color(color_str);
+                Color color = parse_color(child->Attribute("stroke"));
 
                 for (long unsigned int i = 0; i < numbers.size() - 3; i+=2) {
                     Point start = {numbers[i], numbers[i+1]};
                     Point end = {numbers[i+2], numbers[i+3]};
+
+                    // dynamically allocate new line
                     Line *elem = new Line(color, start, end);
+                    // push line into svg_elements vector
                     svg_elements.push_back(elem);
                 }
             }
 
             // POLYGON
             if (strcmp(child->Name(), "polygon") == 0) {
-                // 1: points="0,0 0,399 399,399, 399,199" 
-                // 2: fill="red"
 
-                std::string points_str = attributes["points"];
+                // exemplo:
+                    // 1: points="0,0 0,399 399,399, 399,199" 
+                    // 2: fill="red"
+
+                std::string points_str = child->Attribute("points");
 
                 // substituir virgulas com espaços
                 for (char& c : points_str) {
@@ -191,40 +170,43 @@ namespace svg
                     points.push_back(point);
                 }
 
-                std::string color_str = attributes["fill"];
-                Color color = parse_color(color_str);
+                Color color = parse_color(child->Attribute("fill"));
 
+                // dynamically allocate new polygon
                 Polygon *elem = new Polygon(points, color);
+                // push polygon into svg_elements vector
                 svg_elements.push_back(elem);
             }
 
             // RECT
             if (strcmp(child->Name(), "rect") == 0) {
-                // 1: x="0" 
-                // 2: y="0" 
-                // 3: fill="blue" 
-                // 4: width="400" 
-                // 5: height="600"
 
-                std::string color_str = attributes["fill"]; // get color
-                Color color = parse_color(color_str);
+                // exemplo:
+                    // 1: x="0" 
+                    // 2: y="0" 
+                    // 3: fill="blue" 
+                    // 4: width="400" 
+                    // 5: height="600"
+                
+                int x = child->IntAttribute("x"); // get x
+                int y = child->IntAttribute("y"); // get y
 
-                int x = stoi(attributes["x"]); // get x
-                int y = stoi(attributes["y"]); // get y
-
-                int width_rect = stoi(attributes["width"]) -1; // get width
-                int height_rect = stoi(attributes["height"]) -1; // get height
+                int width_rect = child->IntAttribute("width") -1; // get width
+                int height_rect = child->IntAttribute("height") -1; // get height
 
                 vector<Point> points;
-                points.push_back({x,y});
-                points.push_back({x+width_rect,y});
-                points.push_back({x+width_rect,y+height_rect});
-                points.push_back({x,y+height_rect});
+                points.push_back({x,y}); // top-left corner
+                points.push_back({x+width_rect,y}); // top-right corner
+                points.push_back({x+width_rect,y+height_rect}); // bottom-right corner
+                points.push_back({x,y+height_rect}); // bottom-left corner
 
+                Color color = parse_color(child->Attribute("fill")); // get color
+
+                // dynamically allocate new line
                 Polygon *elem = new Polygon(points, color);
+                // push polygon into svg_elements vector
                 svg_elements.push_back(elem);
             }
-        
         }
     }
 }

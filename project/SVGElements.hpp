@@ -38,19 +38,7 @@ namespace svg
         Point center;
         Point radius;
     };
-
-    class Circle : public SVGElement
-    {
-    public:
-        Circle(const Color &fill, const Point &center, const int &radius);
-        void draw(PNGImage &img) const override;
-
-    private:
-        Color fill;
-        Point center;
-        int radius;
-    };
-
+    
     class Line : public SVGElement
     {
     public:
