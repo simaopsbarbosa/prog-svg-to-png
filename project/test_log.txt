@@ -32,67 +32,38 @@ pixel (36 80): expected 255 0 0 got 255 255 255
 >>>> [25] rect_2 <<<<
 >>>> [26] rect_3 <<<<
 >>>> [27] rotate_circle <<<<
-pixel (21 212): expected 255 0 0 got 255 255 255
 >>>> [28] rotate_circle_with_origin <<<<
-pixel (100 300): expected 0 0 255 got 240 240 240
 >>>> [29] rotate_line <<<<
-pixel (0 1): expected 255 0 0 got 255 255 255
 >>>> [30] rotate_line_with_origin <<<<
-pixel (41 66): expected 0 255 0 got 255 255 255
 >>>> [31] rotate_polygon <<<<
-pixel (50 50): expected 255 255 255 got 0 0 255
 >>>> [32] rotate_polygon_with_origin <<<<
-pixel (16 143): expected 0 0 255 got 255 255 255
 >>>> [33] rotate_polyline <<<<
-pixel (16 23): expected 0 255 0 got 255 255 255
 >>>> [34] rotate_polyline_with_origin <<<<
-pixel (10 11): expected 0 0 255 got 255 255 255
 >>>> [35] rotate_rect <<<<
-pixel (6 252): expected 0 0 255 got 255 255 255
 >>>> [36] rotate_rect_with_origin <<<<
-pixel (14 113): expected 0 255 0 got 255 255 255
 >>>> [37] scale_circle <<<<
-pixel (20 60): expected 255 0 0 got 255 255 255
 >>>> [38] scale_circle_with_origin <<<<
-pixel (100 300): expected 0 0 255 got 255 255 255
 >>>> [39] scale_ellipse <<<<
-pixel (20 60): expected 255 0 0 got 255 255 255
 >>>> [40] scale_ellipse_with_origin <<<<
-pixel (100 300): expected 0 0 255 got 255 255 255
 >>>> [41] scale_line <<<<
-pixel (50 50): expected 255 255 255 got 0 255 0
 >>>> [42] scale_line_with_origin <<<<
-pixel (50 50): expected 255 0 0 got 0 255 0
 >>>> [43] scale_polygon <<<<
-pixel (25 25): expected 255 0 0 got 0 255 0
 >>>> [44] scale_polygon_with_origin <<<<
-pixel (50 50): expected 255 255 0 got 255 0 0
 >>>> [45] scale_polyline <<<<
-pixel (20 20): expected 255 0 0 got 0 0 0
 >>>> [46] scale_polyline_with_origin <<<<
-pixel (20 160): expected 0 255 0 got 255 255 255
 >>>> [47] scale_rect <<<<
-pixel (0 20): expected 255 0 0 got 255 255 255
 >>>> [48] scale_rect_with_origin <<<<
-pixel (55 50): expected 0 255 0 got 255 255 255
 >>>> [49] transform_several <<<<
-pixel (0 0): expected 255 0 0 got 0 0 255
 >>>> [50] translate_circle <<<<
-pixel (0 25): expected 0 255 0 got 255 255 0
 >>>> [51] translate_ellipse <<<<
-pixel (5 25): expected 0 255 0 got 0 0 255
 >>>> [52] translate_line <<<<
-pixel (1 1): expected 255 255 255 got 0 255 0
 >>>> [53] translate_polygon <<<<
-pixel (0 0): expected 255 0 0 got 0 0 255
 >>>> [54] translate_polyline <<<<
-pixel (10 10): expected 0 0 255 got 255 255 0
 >>>> [55] translate_rect <<<<
-pixel (5 5): expected 0 255 0 got 255 255 0
 >>>> [56] use_1 <<<<
 pixel (11 5): expected 255 0 0 got 255 255 255
 >>>> [57] use_2 <<<<
-pixel (15 40): expected 255 0 0 got 0 0 255
+pixel (15 100): expected 0 0 255 got 255 255 255
 >>>> [58] use_3 <<<<
 pixel (0 250): expected 255 0 0 got 255 255 255
 >>>> [59] use_4 <<<<

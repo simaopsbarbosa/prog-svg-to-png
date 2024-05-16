@@ -10,6 +10,57 @@ using namespace tinyxml2;
 
 namespace svg
 {
+
+    Point getTransformOrigin(XMLElement* child) {
+        std::string transform_origin_str;
+        Point res;
+            if (child->Attribute("transform-origin") != NULL) {
+                transform_origin_str = child->Attribute("transform-origin");
+                for (char& c : transform_origin_str) {
+                    if (c == ',') {
+                        c = ' ';
+                    }
+                }
+            } else {
+                transform_origin_str = "0 0";
+            }
+            int torigin_x, torigin_y;
+            stringstream originSStream(transform_origin_str);
+            originSStream >> torigin_x >> torigin_y;
+            res = {torigin_x, torigin_y};
+        return res;
+    }
+
+    void applyTransform(XMLElement* child, SVGElement* elem) {
+        std::string operation;
+        if (child->Attribute("transform") != NULL) {
+            
+            std::string transform = child->Attribute("transform");
+            for (char& c : transform) {
+                if (c == '(' || c == ')' || c == ',') {
+                    c = ' ';
+                }
+            }
+
+            std::stringstream sstream(transform);
+            sstream >> operation; // e.g. get "rotate"
+            if (operation == "rotate") {
+                int n;
+                sstream >> n;
+                elem->rotate(n);
+            } else if (operation == "scale") {
+                int n;
+                sstream >> n;
+                elem->scale(n);
+            } else if (operation == "translate") {
+                int n,m;
+                sstream >> n;
+                sstream >> m;
+                elem->translate(n, m);
+            }
+        }
+    }
+
     void readSVG(const string& svg_file, Point& dimensions, vector<SVGElement *>& svg_elements)
     {
         XMLDocument doc;
@@ -31,11 +82,11 @@ namespace svg
             if (strcmp(child->Name(), "ellipse") == 0) {
 
                 // exemplo:
-                    // 1: cx="100"
-                    // 2: cy="100"
-                    // 3: rx="95"
-                    // 4: ry="20"
-                    // 5: fill="red"
+                    // cx="100"
+                    // cy="100"
+                    // rx="95"
+                    // ry="20"
+                    // fill="red"
 
                 Point center;
                 center.x = child->IntAttribute("cx");
@@ -47,8 +98,12 @@ namespace svg
 
                 Color color = parse_color(child->Attribute("fill"));
 
-                // dynamically allocate new ellipse
-                Ellipse *elem = new Ellipse(color, center, radius);
+                // get transform_origin point
+                Point transform_origin = getTransformOrigin(child);
+                // dynamically allocate new ellipse object
+                Ellipse *elem = new Ellipse(color, center, radius, transform_origin);
+                // check and apply transforms
+                applyTransform(child, elem);
                 // push ellipse into svg_elements vector
                 svg_elements.push_back(elem);
             }
@@ -57,10 +112,10 @@ namespace svg
             if (strcmp(child->Name(), "circle") == 0) {
 
                 // exemplo:
-                    // 1: cx="100"
-                    // 2: cy="100"
-                    // 3: r="95"
-                    // 5: fill="red"
+                    // cx="100"
+                    // cy="100"
+                    // r="95"
+                    // fill="red"
                 
                 Point center;
                 center.x = child->IntAttribute("cx");
@@ -72,8 +127,12 @@ namespace svg
 
                 Color color = parse_color(child->Attribute("fill"));
 
-                // dynamically allocate new ellipse
-                Ellipse *elem = new Ellipse(color, center, radius);
+                // get transform_origin point
+                Point transform_origin = getTransformOrigin(child);
+                // dynamically allocate new ellipse object
+                Ellipse *elem = new Ellipse(color, center, radius, transform_origin);
+                // check and apply transforms
+                applyTransform(child, elem);
                 // push ellipse into svg_elements vector
                 svg_elements.push_back(elem);
             }
@@ -82,11 +141,11 @@ namespace svg
             if (strcmp(child->Name(), "line") == 0) {
 
                 // exemplo:
-                    // 1: x1="1"
-                    // 2: y1="198"
-                    // 3: x2="1"
-                    // 4: y2="1"
-                    // 5: stroke="red"
+                    // x1="1"
+                    // y1="198"
+                    // x2="1"
+                    // y2="1"
+                    // stroke="red"
 
                 Point start;
                 start.x = child->IntAttribute("x1");
@@ -98,8 +157,12 @@ namespace svg
 
                 Color color = parse_color(child->Attribute("stroke"));
 
-                // dynamically allocate new line
-                Line *elem = new Line(color, start, end);
+                // get transform_origin point
+                Point transform_origin = getTransformOrigin(child);
+                // dynamically allocate new line object
+                Line *elem = new Line(color, start, end, transform_origin);
+                // check and apply transforms
+                applyTransform(child, elem);
                 // push line into svg_elements vector
                 svg_elements.push_back(elem);
             }
@@ -108,8 +171,8 @@ namespace svg
             if (strcmp(child->Name(), "polyline") == 0) {
 
                 // exemplo:
-                    // 1: points="0,0 0,399 399,399, 399,199" 
-                    // 2: fill="red"
+                    // points="0,0 0,399 399,399, 399,199" 
+                    // fill="red"
 
                 std::string points_str = child->Attribute("points");
 
@@ -133,8 +196,12 @@ namespace svg
                     Point start = {numbers[i], numbers[i+1]};
                     Point end = {numbers[i+2], numbers[i+3]};
 
-                    // dynamically allocate new line
-                    Line *elem = new Line(color, start, end);
+                    // get transform_origin point
+                    Point transform_origin = getTransformOrigin(child);
+                    // dynamically allocate new line obejct
+                    Line *elem = new Line(color, start, end, transform_origin);
+                    // check and apply transforms
+                    applyTransform(child, elem);
                     // push line into svg_elements vector
                     svg_elements.push_back(elem);
                 }
@@ -144,8 +211,8 @@ namespace svg
             if (strcmp(child->Name(), "polygon") == 0) {
 
                 // exemplo:
-                    // 1: points="0,0 0,399 399,399, 399,199" 
-                    // 2: fill="red"
+                    // points="0,0 0,399 399,399, 399,199" 
+                    // fill="red"
 
                 std::string points_str = child->Attribute("points");
 
@@ -172,8 +239,12 @@ namespace svg
 
                 Color color = parse_color(child->Attribute("fill"));
 
+                // get transform_origin point
+                Point transform_origin = getTransformOrigin(child);
                 // dynamically allocate new polygon
-                Polygon *elem = new Polygon(points, color);
+                Polygon *elem = new Polygon(points, color, transform_origin);
+                // check and apply transforms
+                applyTransform(child, elem);
                 // push polygon into svg_elements vector
                 svg_elements.push_back(elem);
             }
@@ -182,28 +253,32 @@ namespace svg
             if (strcmp(child->Name(), "rect") == 0) {
 
                 // exemplo:
-                    // 1: x="0" 
-                    // 2: y="0" 
-                    // 3: fill="blue" 
-                    // 4: width="400" 
-                    // 5: height="600"
+                    // x="0" 
+                    // y="0" 
+                    // fill="blue" 
+                    // width="400" 
+                    // height="600"
                 
                 int x = child->IntAttribute("x"); // get x
                 int y = child->IntAttribute("y"); // get y
 
-                int width_rect = child->IntAttribute("width") -1; // get width
-                int height_rect = child->IntAttribute("height") -1; // get height
+                int width_rect = child->IntAttribute("width"); // get width
+                int height_rect = child->IntAttribute("height"); // get height
 
                 vector<Point> points;
                 points.push_back({x,y}); // top-left corner
-                points.push_back({x+width_rect,y}); // top-right corner
-                points.push_back({x+width_rect,y+height_rect}); // bottom-right corner
-                points.push_back({x,y+height_rect}); // bottom-left corner
+                points.push_back({x+width_rect-1,y}); // top-right corner
+                points.push_back({x+width_rect-1,y+height_rect-1}); // bottom-right corner
+                points.push_back({x,y+height_rect-1}); // bottom-left corner
 
                 Color color = parse_color(child->Attribute("fill")); // get color
 
+                // get transform_origin point
+                Point transform_origin = getTransformOrigin(child);
                 // dynamically allocate new line
-                Polygon *elem = new Polygon(points, color);
+                Polygon *elem = new Polygon(points, color, transform_origin);
+                // check and apply transforms
+                applyTransform(child, elem);
                 // push polygon into svg_elements vector
                 svg_elements.push_back(elem);
             }
