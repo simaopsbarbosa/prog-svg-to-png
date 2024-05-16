@@ -28,6 +28,10 @@ namespace svg
         radius = radius.scale({0,0}, v);
         center = center.scale(transform_origin, v);
     }
+    SVGElement *Ellipse::clone(const Point transform_origin) const
+    {
+        return new Ellipse(this->fill, this->center, this->radius, transform_origin);
+    }
 
     // Line
     Line::Line(const Color &stroke,
@@ -52,6 +56,10 @@ namespace svg
     void Line::scale(int v) {
         start = start.scale(transform_origin, v);
         end = end.scale(transform_origin, v);
+    }
+    SVGElement *Line::clone(const Point transform_origin) const
+    {
+        return new Line(this->stroke, this->start, this->end, transform_origin);
     }
 
     // Polygon
@@ -79,6 +87,10 @@ namespace svg
         for (Point& p : this->points) {
             p = p.scale(transform_origin, v);
         }
+    }
+    SVGElement *Polygon::clone(const Point transform_origin) const
+    {
+        return new Polygon(this->points, this->fill, transform_origin);
     }
 
     // Group
@@ -109,5 +121,33 @@ namespace svg
             elem->scale(v);
         }
     }
+    SVGElement *Group::clone(const Point transform_origin) const
+    {
+        return new Group(this->elements, transform_origin);
+    }
 
+    // Use
+    Use::Use(const std::map<std::string,SVGElement*> &elements_with_id,  
+             const std::string &href,
+             const Point transform_origin)
+        : elements_with_id(elements_with_id), href(href), transform_origin(transform_origin)
+    {
+    }
+    void Use::draw(PNGImage &img) const
+    {
+
+    }
+    void Use::translate(int x, int y) {
+        elements_with_id.at(href)->translate(x,y);
+    }
+    void Use::rotate(int v) {
+        elements_with_id.at(href)->rotate(v);
+    }
+    void Use::scale(int v) {
+        elements_with_id.at(href)->scale(v);
+    }
+    SVGElement *Use::clone(const Point transform_origin) const
+    {
+        return new Use(this->elements_with_id, this->href, transform_origin);
+    }
 }

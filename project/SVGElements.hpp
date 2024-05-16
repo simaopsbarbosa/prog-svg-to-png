@@ -5,7 +5,9 @@
 #include "Color.hpp"
 #include "Point.hpp"
 #include "PNGImage.hpp"
+#include <map>
 #include "iostream" // DELETE ME LATEr
+
 
 namespace svg
 {
@@ -19,6 +21,7 @@ namespace svg
         virtual void translate(int x, int y) = 0;
         virtual void rotate(int v) = 0;
         virtual void scale(int v) = 0;
+        virtual SVGElement* clone(const Point transform_origin) const = 0;
     };
 
     // Declaration of namespace functions
@@ -42,6 +45,7 @@ namespace svg
         void translate(int x, int y) override;
         void rotate(int v) override;
         void scale(int v) override;
+        SVGElement* clone(const Point transform_origin) const override;
 
     private:
         Color fill;
@@ -61,6 +65,7 @@ namespace svg
         void translate(int x, int y) override;
         void rotate(int v) override;
         void scale(int v) override;
+        SVGElement* clone(const Point transform_origin) const override;
 
     private:
         Color stroke;
@@ -79,6 +84,7 @@ namespace svg
         void translate(int x, int y) override;
         void rotate(int v) override;
         void scale(int v) override;
+        SVGElement* clone(const Point transform_origin) const override;
 
     private:
         std::vector<Point> points;
@@ -95,9 +101,28 @@ namespace svg
         void translate(int x, int y) override;
         void rotate(int v) override;
         void scale(int v) override;
+        SVGElement* clone(const Point transform_origin) const override;
 
     private:
         std::vector<SVGElement*> elements;
+        Point transform_origin;
+    };
+
+    class Use : public SVGElement
+    {
+    public:
+        Use(const std::map<std::string,SVGElement*> &elements_with_id,  
+            const std::string &href,
+            const Point transform_origin);
+        void draw(PNGImage &img) const override;
+        void translate(int x, int y) override;
+        void rotate(int v) override;
+        void scale(int v) override;
+        SVGElement* clone(const Point transform_origin) const override;
+
+    private:
+        std::map<std::string,SVGElement*> elements_with_id;
+        std::string href;
         Point transform_origin;
     };
 }
