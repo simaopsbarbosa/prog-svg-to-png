@@ -7,19 +7,12 @@
 >>>> [7] ellipse_1 <<<<
 >>>> [8] ellipse_2 <<<<
 >>>> [9] group_1 <<<<
-pixel (10 40): expected 255 0 0 got 255 255 255
 >>>> [10] group_2 <<<<
-pixel (0 25): expected 255 0 0 got 255 255 255
 >>>> [11] group_3 <<<<
-pixel (10 260): expected 255 0 0 got 255 255 255
 >>>> [12] group_4 <<<<
-pixel (10 260): expected 255 0 0 got 255 255 255
 >>>> [13] group_5 <<<<
-pixel (10 260): expected 255 0 0 got 255 255 255
 >>>> [14] group_6 <<<<
-pixel (10 10): expected 255 0 0 got 255 255 255
 >>>> [15] group_7 <<<<
-pixel (36 80): expected 255 0 0 got 255 255 255
 >>>> [16] line_1 <<<<
 >>>> [17] line_2 <<<<
 >>>> [18] lion <<<<
@@ -65,10 +58,10 @@ pixel (11 5): expected 255 0 0 got 255 255 255
 >>>> [57] use_2 <<<<
 pixel (15 100): expected 0 0 255 got 255 255 255
 >>>> [58] use_3 <<<<
-pixel (0 250): expected 255 0 0 got 255 255 255
+pixel (0 750): expected 255 0 0 got 255 255 255
 >>>> [59] use_4 <<<<
-pixel (0 0): expected 255 0 0 got 255 255 255
+pixel (0 500): expected 255 0 0 got 255 255 255
 >>>> [60] use_5 <<<<
-pixel (51 51): expected 0 255 0 got 255 255 255
+pixel (302 51): expected 255 0 0 got 255 255 255
 >>>> [61] use_6 <<<<
-pixel (0 0): expected 0 0 0 got 255 255 255
+pixel (266 346): expected 0 0 255 got 255 255 255

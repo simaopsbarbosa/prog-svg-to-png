@@ -85,5 +85,20 @@ namespace svg
         Color fill;
         Point transform_origin;
     };
+
+    class Group : public SVGElement
+    {
+    public:
+        Group(const std::vector<SVGElement*> &elements,  
+                const Point transform_origin);
+        void draw(PNGImage &img) const override;
+        void translate(int x, int y) override;
+        void rotate(int v) override;
+        void scale(int v) override;
+
+    private:
+        std::vector<SVGElement*> elements;
+        Point transform_origin;
+    };
 }
 #endif

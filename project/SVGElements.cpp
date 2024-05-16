@@ -81,4 +81,33 @@ namespace svg
         }
     }
 
+    // Group
+    Group::Group(const std::vector<SVGElement*> &elements, 
+                const Point transform_origin)
+        : elements(elements), transform_origin(transform_origin)
+    {
+    }
+    void Group::draw(PNGImage &img) const
+    {
+        for (SVGElement* elem : elements) {
+            elem->draw(img);
+            delete elem;
+        }
+    }
+    void Group::translate(int x, int y) {
+        for (SVGElement* elem : elements) {
+            elem->translate(x,y);
+        }
+    }
+    void Group::rotate(int v) {
+        for (SVGElement* elem : elements) {
+            elem->rotate(v);
+        }
+    }
+    void Group::scale(int v) {
+        for (SVGElement* elem : elements) {
+            elem->scale(v);
+        }
+    }
+
 }
