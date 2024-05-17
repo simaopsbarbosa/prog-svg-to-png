@@ -11,13 +11,13 @@ namespace svg
 {
     //! Gets transform-origin point.
     //! @param child The XMLElement to search for transform-origin
-    //! @return Point transform-origin from XMLELement 
+    //! @return Point transform-origin from XMLELement
     Point getTransformOrigin(XMLElement *child)
     {
         std::string transform_origin_str;
         if (child->Attribute("transform-origin") != NULL)
         {
-            // get transform_origin string (ex: "150 150" or "150, 150") 
+            // get transform_origin string (ex: "150 150" or "150, 150")
             transform_origin_str = child->Attribute("transform-origin");
 
             // replace commas with spaces
@@ -53,7 +53,7 @@ namespace svg
             std::string transform = child->Attribute("transform");
             // replace characters '(', ')' and ',' with spaces
             for (char &c : transform)
-            {   
+            {
                 if (c == '(' || c == ')' || c == ',')
                 {
                     c = ' ';

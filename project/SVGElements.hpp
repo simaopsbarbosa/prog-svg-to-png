@@ -93,10 +93,10 @@ namespace svg
         SVGElement *clone(const Point transform_origin) const override;
 
     private:
-        Color fill;               //!< The fill color of the ellipse.
-        Point center;             //!< The center point of the ellipse.
-        Point radius;             //!< The radius of the ellipse.
-        Point transform_origin;   //!< The transform origin for the ellipse.
+        Color fill;             //!< The fill color of the ellipse.
+        Point center;           //!< The center point of the ellipse.
+        Point radius;           //!< The radius of the ellipse.
+        Point transform_origin; //!< The transform origin for the ellipse.
     };
 
     //! Class representing a line SVG element.
@@ -136,10 +136,10 @@ namespace svg
         SVGElement *clone(const Point transform_origin) const override;
 
     private:
-        Color stroke;             //!< The stroke color of the line.
-        Point start;              //!< The starting point of the line.
-        Point end;                //!< The ending point of the line.
-        Point transform_origin;   //!< The transform origin for the line.
+        Color stroke;           //!< The stroke color of the line.
+        Point start;            //!< The starting point of the line.
+        Point end;              //!< The ending point of the line.
+        Point transform_origin; //!< The transform origin for the line.
     };
 
     //! Class representing a polygon SVG element.
@@ -177,9 +177,9 @@ namespace svg
         SVGElement *clone(const Point transform_origin) const override;
 
     private:
-        std::vector<Point> points;  //!< The points defining the polygon.
-        Color fill;                 //!< The fill color of the polygon.
-        Point transform_origin;     //!< The transform origin for the polygon.
+        std::vector<Point> points; //!< The points defining the polygon.
+        Color fill;                //!< The fill color of the polygon.
+        Point transform_origin;    //!< The transform origin for the polygon.
     };
 
     //! Class representing a group of SVG elements.
@@ -252,8 +252,8 @@ namespace svg
         SVGElement *clone(const Point transform_origin) const override;
 
     private:
-        SVGElement *copied;       //!< The SVGElement being referenced.
-        Point transform_origin;   //!< The transform origin for the use element.
+        SVGElement *copied;     //!< The SVGElement being referenced.
+        Point transform_origin; //!< The transform origin for the use element.
     };
 }
 #endif
