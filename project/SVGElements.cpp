@@ -122,15 +122,19 @@ namespace svg
         }
     }
     SVGElement *Group::clone(const Point transform_origin) const
-    {
-        return new Group(this->elements, transform_origin);
+    {   
+        std::vector<SVGElement *> cloned_elements;
+        for (SVGElement *elem : elements)
+        {
+            cloned_elements.push_back(elem->clone(transform_origin));
+        }
+        return new Group(cloned_elements, transform_origin);
     }
 
     // Use
-    Use::Use(const std::map<std::string,SVGElement*> &elements_with_id,  
-             const std::string &href,
-             const Point transform_origin)
-        : elements_with_id(elements_with_id), href(href), transform_origin(transform_origin)
+    Use::Use(SVGElement* copied, 
+            const Point transform_origin)
+        : copied(copied), transform_origin(transform_origin)
     {
     }
     void Use::draw(PNGImage &img) const
@@ -138,16 +142,17 @@ namespace svg
 
     }
     void Use::translate(int x, int y) {
-        elements_with_id.at(href)->translate(x,y);
+        copied->translate(x,y);
     }
     void Use::rotate(int v) {
-        elements_with_id.at(href)->rotate(v);
+        copied->rotate(v);
     }
     void Use::scale(int v) {
-        elements_with_id.at(href)->scale(v);
+        copied->scale(v);
     }
     SVGElement *Use::clone(const Point transform_origin) const
     {
-        return new Use(this->elements_with_id, this->href, transform_origin);
+        return new Use(this->copied, transform_origin);
     }
+
 }

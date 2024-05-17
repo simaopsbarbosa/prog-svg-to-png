@@ -111,8 +111,7 @@ namespace svg
     class Use : public SVGElement
     {
     public:
-        Use(const std::map<std::string,SVGElement*> &elements_with_id,  
-            const std::string &href,
+        Use(SVGElement* copied,  
             const Point transform_origin);
         void draw(PNGImage &img) const override;
         void translate(int x, int y) override;
@@ -121,9 +120,9 @@ namespace svg
         SVGElement* clone(const Point transform_origin) const override;
 
     private:
-        std::map<std::string,SVGElement*> elements_with_id;
-        std::string href;
+        SVGElement* copied;
         Point transform_origin;
     };
+
 }
 #endif

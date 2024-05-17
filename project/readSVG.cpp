@@ -59,7 +59,7 @@ namespace svg
         }
     }
 
-    void getAttributes(XMLElement * child, std::vector<SVGElement *>& svg_elements, std::map<std::string,SVGElement*> &elements_with_id) {
+    void getElement(XMLElement * child, std::vector<SVGElement *>& svg_elements, std::map<std::string,SVGElement*> &elements_with_id) {
         // ELLIPSE
         if (std::string(child->Name()) == "ellipse") {
 
@@ -88,7 +88,6 @@ namespace svg
             applyTransform(child, elem);
             // check if child has an id and add to elements_with_id map
             if (child->Attribute("id") != NULL) {
-                std::cout << "[DEBUG] id: " << child->Attribute("id") << "\n";
                 elements_with_id[child->Attribute("id")] = elem;
             }
             // push ellipse into svg_elements vector
@@ -122,7 +121,6 @@ namespace svg
             applyTransform(child, elem);
             // check if child has an id and add to elements_with_id map
             if (child->Attribute("id") != NULL) {
-                std::cout << "[DEBUG] id: " << child->Attribute("id") << "\n";
                 elements_with_id[child->Attribute("id")] = elem;
             }
             // push ellipse into svg_elements vector
@@ -157,7 +155,6 @@ namespace svg
             applyTransform(child, elem);
             // check if child has an id and add to elements_with_id map
             if (child->Attribute("id") != NULL) {
-                std::cout << "[DEBUG] id: " << child->Attribute("id") << "\n";
                 elements_with_id[child->Attribute("id")] = elem;
             }
             // push line into svg_elements vector
@@ -201,7 +198,6 @@ namespace svg
                 applyTransform(child, elem);
                 // check if child has an id and add to elements_with_id map
                 if (child->Attribute("id") != NULL) {
-                std::cout << "[DEBUG] id: " << child->Attribute("id") << "\n";
                 elements_with_id[child->Attribute("id")] = elem;
             }
                 // push line into svg_elements vector
@@ -249,7 +245,6 @@ namespace svg
             applyTransform(child, elem);
             // check if child has an id and add to elements_with_id map
             if (child->Attribute("id") != NULL) {
-                std::cout << "[DEBUG] id: " << child->Attribute("id") << "\n";
                 elements_with_id[child->Attribute("id")] = elem;
             }
             // push polygon into svg_elements vector
@@ -288,7 +283,6 @@ namespace svg
             applyTransform(child, elem);
             // check if child has an id and add to elements_with_id map
             if (child->Attribute("id") != NULL) {
-                std::cout << "[DEBUG] id: " << child->Attribute("id") << "\n";
                 elements_with_id[child->Attribute("id")] = elem;
             }
             // push polygon into svg_elements vector
@@ -301,34 +295,34 @@ namespace svg
             std::vector<SVGElement *> elements;
             for (XMLElement *group_child = child->FirstChildElement(); group_child != nullptr; group_child = group_child->NextSiblingElement())
             {
-                getAttributes(group_child, elements, elements_with_id);
+                getElement(group_child, elements, elements_with_id);
             }
 
             // get transform_origin point
             Point transform_origin = getTransformOrigin(child);
             // dynamically allocate new group
             Group *elem = new Group(elements, transform_origin);
+            // check and apply transforms
+            applyTransform(child, elem);
             // check if child has an id and add to elements_with_id map
             if (child->Attribute("id") != NULL) {
                 elements_with_id[child->Attribute("id")] = elem;
             }
-            // check and apply transforms
-            applyTransform(child, elem);
             // push group into svg_elements vector
             svg_elements.push_back(elem);
         }
 
         // USE
         if (std::string(child->Name()) == "use") {
-
-            std::string href = child->Attribute("href");
-            href = href.erase(0, 1); // erase '#'
-
             // get transform_origin point
             Point transform_origin = getTransformOrigin(child);
 
-            auto it = elements_with_id.find(href);
-            SVGElement* elem = it->second->clone(transform_origin);
+            // get href
+            std::string href = child->Attribute("href");
+            href = href.erase(0, 1); // erase '#'
+
+            // get element to copy
+            auto elem = elements_with_id.at(href)->clone(transform_origin);
 
             // check and apply transforms
             applyTransform(child, elem);
@@ -336,9 +330,10 @@ namespace svg
             if (child->Attribute("id") != NULL) {
                 elements_with_id[child->Attribute("id")] = elem;
             }
-            // push group into svg_elements vector
+            // push polygon into svg_elements vector
             svg_elements.push_back(elem);
         }
+
     }
 
     void readSVG(const string& svg_file, Point& dimensions, vector<SVGElement *>& svg_elements)
@@ -356,10 +351,10 @@ namespace svg
         
         // POPULATING SVG_ELEMENTS VECTOR
 
-        std::map<std::string,SVGElement*> elements_with_id;
+        std::map<std::string, SVGElement*> elements_with_id;
         for (XMLElement *child = xml_elem->FirstChildElement(); child != nullptr; child = child->NextSiblingElement())
         {
-            getAttributes(child, svg_elements, elements_with_id);
+            getElement(child, svg_elements, elements_with_id);
         }
     }
 }
