@@ -9,66 +9,97 @@ using namespace tinyxml2;
 
 namespace svg
 {
-    Point getTransformOrigin(XMLElement* child) {
+    //! Gets transform-origin point.
+    //! @param child The XMLElement to search for transform-origin
+    //! @return Point transform-origin from XMLELement 
+    Point getTransformOrigin(XMLElement *child)
+    {
         std::string transform_origin_str;
-        Point res;
-            if (child->Attribute("transform-origin") != NULL) {
-                transform_origin_str = child->Attribute("transform-origin");
-                for (char& c : transform_origin_str) {
-                    if (c == ',') {
-                        c = ' ';
-                    }
+        if (child->Attribute("transform-origin") != NULL)
+        {
+            // get transform_origin string (ex: "150 150" or "150, 150") 
+            transform_origin_str = child->Attribute("transform-origin");
+
+            // replace commas with spaces
+            for (char &c : transform_origin_str)
+            {
+                if (c == ',')
+                {
+                    c = ' ';
                 }
-            } else {
-                transform_origin_str = "0 0";
             }
-            int torigin_x, torigin_y;
-            stringstream originSStream(transform_origin_str);
-            originSStream >> torigin_x >> torigin_y;
-            res = {torigin_x, torigin_y};
+        }
+        else
+        {
+            // if there is no "transform-origin" attritube function should return {0,0}
+            transform_origin_str = "0 0";
+        }
+        int torigin_x, torigin_y;
+        stringstream originSStream(transform_origin_str);
+        originSStream >> torigin_x >> torigin_y; // get first and second values
+        Point res = {torigin_x, torigin_y};
         return res;
     }
 
-    void applyTransform(XMLElement* child, SVGElement* elem) {
+    //! Applies transformations to SVGElement.
+    //! @param child The XMLElement with transformations.
+    //! @param elem The SVGElement to transform.
+    void applyTransform(XMLElement *child, SVGElement *elem)
+    {
         std::string operation;
-        if (child->Attribute("transform") != NULL) {
-            
+        if (child->Attribute("transform") != NULL)
+        {
+            // get transform attribute
             std::string transform = child->Attribute("transform");
-            for (char& c : transform) {
-                if (c == '(' || c == ')' || c == ',') {
+            // replace characters '(', ')' and ',' with spaces
+            for (char &c : transform)
+            {   
+                if (c == '(' || c == ')' || c == ',')
+                {
                     c = ' ';
                 }
             }
 
             std::stringstream sstream(transform);
             sstream >> operation;
-            if (operation == "rotate") {
+            if (operation == "rotate")
+            {
                 int v;
                 sstream >> v;
                 elem->rotate(v);
-            } else if (operation == "scale") {
+            }
+            else if (operation == "scale")
+            {
                 int v;
                 sstream >> v;
                 elem->scale(v);
-            } else if (operation == "translate") {
-                int x,y;
+            }
+            else if (operation == "translate")
+            {
+                int x, y;
                 sstream >> x;
                 sstream >> y;
-                elem->translate(x,y);
+                elem->translate(x, y);
             }
         }
     }
 
-    void getElement(XMLElement * child, std::vector<SVGElement *>& svg_elements, std::map<std::string,SVGElement*> &elements_with_id) {
+    //! Seaches an XMLElement for an SVGElement and pushes it to vector svg_elements.
+    //! @param child XMLElement to search.
+    //! @param svg_elements Vector of SVGElements to push to.
+    //! @param elements_with_id Map with all elements that have an id.
+    void getElement(XMLElement *child, std::vector<SVGElement *> &svg_elements, std::map<std::string, SVGElement *> &elements_with_id)
+    {
         // ELLIPSE
-        if (std::string(child->Name()) == "ellipse") {
+        if (std::string(child->Name()) == "ellipse")
+        {
 
             // exemplo:
-                // cx="100"
-                // cy="100"
-                // rx="95"
-                // ry="20"
-                // fill="red"
+            // cx="100"
+            // cy="100"
+            // rx="95"
+            // ry="20"
+            // fill="red"
 
             Point center;
             center.x = child->IntAttribute("cx");
@@ -87,7 +118,8 @@ namespace svg
             // check and apply transforms
             applyTransform(child, elem);
             // check if child has an id and add to elements_with_id map
-            if (child->Attribute("id") != NULL) {
+            if (child->Attribute("id") != NULL)
+            {
                 elements_with_id[child->Attribute("id")] = elem;
             }
             // push ellipse into svg_elements vector
@@ -95,13 +127,14 @@ namespace svg
         }
 
         // CIRCLE
-        if (std::string(child->Name()) == "circle") {
+        if (std::string(child->Name()) == "circle")
+        {
 
             // exemplo:
-                // cx="100"
-                // cy="100"
-                // r="95"
-                // fill="red"
+            // cx="100"
+            // cy="100"
+            // r="95"
+            // fill="red"
 
             Point center;
             center.x = child->IntAttribute("cx");
@@ -120,7 +153,8 @@ namespace svg
             // check and apply transforms
             applyTransform(child, elem);
             // check if child has an id and add to elements_with_id map
-            if (child->Attribute("id") != NULL) {
+            if (child->Attribute("id") != NULL)
+            {
                 elements_with_id[child->Attribute("id")] = elem;
             }
             // push ellipse into svg_elements vector
@@ -128,14 +162,15 @@ namespace svg
         }
 
         // LINE
-        if (std::string(child->Name()) == "line") {
+        if (std::string(child->Name()) == "line")
+        {
 
             // exemplo:
-                // x1="1"
-                // y1="198"
-                // x2="1"
-                // y2="1"
-                // stroke="red"
+            // x1="1"
+            // y1="198"
+            // x2="1"
+            // y2="1"
+            // stroke="red"
 
             Point start;
             start.x = child->IntAttribute("x1");
@@ -154,7 +189,8 @@ namespace svg
             // check and apply transforms
             applyTransform(child, elem);
             // check if child has an id and add to elements_with_id map
-            if (child->Attribute("id") != NULL) {
+            if (child->Attribute("id") != NULL)
+            {
                 elements_with_id[child->Attribute("id")] = elem;
             }
             // push line into svg_elements vector
@@ -162,17 +198,20 @@ namespace svg
         }
 
         // POLYLINE
-        if (std::string(child->Name()) == "polyline") {
+        if (std::string(child->Name()) == "polyline")
+        {
 
             // exemplo:
-                // points="0,0 0,399 399,399, 399,199" 
-                // fill="red"
+            // points="0,0 0,399 399,399, 399,199"
+            // fill="red"
 
             std::string points_str = child->Attribute("points");
 
             // substituir virgulas com espaços
-            for (char& c : points_str) {
-                if (c == ',') {
+            for (char &c : points_str)
+            {
+                if (c == ',')
+                {
                     c = ' ';
                 }
             }
@@ -180,15 +219,17 @@ namespace svg
             std::stringstream ss(points_str);
             int num;
             std::vector<int> numbers;
-            while (ss >> num) {
+            while (ss >> num)
+            {
                 numbers.push_back(num);
             }
 
             Color color = parse_color(child->Attribute("stroke"));
 
-            for (long unsigned int i = 0; i < numbers.size() - 3; i+=2) {
-                Point start = {numbers[i], numbers[i+1]};
-                Point end = {numbers[i+2], numbers[i+3]};
+            for (long unsigned int i = 0; i < numbers.size() - 3; i += 2)
+            {
+                Point start = {numbers[i], numbers[i + 1]};
+                Point end = {numbers[i + 2], numbers[i + 3]};
 
                 // get transform_origin point
                 Point transform_origin = getTransformOrigin(child);
@@ -197,26 +238,30 @@ namespace svg
                 // check and apply transforms
                 applyTransform(child, elem);
                 // check if child has an id and add to elements_with_id map
-                if (child->Attribute("id") != NULL) {
-                elements_with_id[child->Attribute("id")] = elem;
-            }
+                if (child->Attribute("id") != NULL)
+                {
+                    elements_with_id[child->Attribute("id")] = elem;
+                }
                 // push line into svg_elements vector
                 svg_elements.push_back(elem);
             }
         }
 
         // POLYGON
-        if (std::string(child->Name()) == "polygon") {
+        if (std::string(child->Name()) == "polygon")
+        {
 
             // exemplo:
-                // points="0,0 0,399 399,399, 399,199" 
-                // fill="red"
+            // points="0,0 0,399 399,399, 399,199"
+            // fill="red"
 
             std::string points_str = child->Attribute("points");
 
             // substituir virgulas com espaços
-            for (char& c : points_str) {
-                if (c == ',') {
+            for (char &c : points_str)
+            {
+                if (c == ',')
+                {
                     c = ' ';
                 }
             }
@@ -225,13 +270,15 @@ namespace svg
             std::stringstream ss(points_str);
             int num;
             std::vector<int> numbers;
-            while (ss >> num) {
+            while (ss >> num)
+            {
                 numbers.push_back(num);
             }
 
             vector<Point> points;
-            for (unsigned int i = 0; i < numbers.size() - 1; i+=2) {
-                Point point = {numbers[i], numbers[i+1]};
+            for (unsigned int i = 0; i < numbers.size() - 1; i += 2)
+            {
+                Point point = {numbers[i], numbers[i + 1]};
                 points.push_back(point);
             }
 
@@ -244,7 +291,8 @@ namespace svg
             // check and apply transforms
             applyTransform(child, elem);
             // check if child has an id and add to elements_with_id map
-            if (child->Attribute("id") != NULL) {
+            if (child->Attribute("id") != NULL)
+            {
                 elements_with_id[child->Attribute("id")] = elem;
             }
             // push polygon into svg_elements vector
@@ -252,26 +300,27 @@ namespace svg
         }
 
         // RECT
-        if (std::string(child->Name()) == "rect") {
+        if (std::string(child->Name()) == "rect")
+        {
 
             // exemplo:
-                // x="0" 
-                // y="0" 
-                // fill="blue" 
-                // width="400" 
-                // height="600"
+            // x="0"
+            // y="0"
+            // fill="blue"
+            // width="400"
+            // height="600"
 
             int x = child->IntAttribute("x"); // get x
             int y = child->IntAttribute("y"); // get y
 
-            int width_rect = child->IntAttribute("width"); // get width
+            int width_rect = child->IntAttribute("width");   // get width
             int height_rect = child->IntAttribute("height"); // get height
 
             vector<Point> points;
-            points.push_back({x,y}); // top-left corner
-            points.push_back({x+width_rect-1,y}); // top-right corner
-            points.push_back({x+width_rect-1,y+height_rect-1}); // bottom-right corner
-            points.push_back({x,y+height_rect-1}); // bottom-left corner
+            points.push_back({x, y});                                    // top-left corner
+            points.push_back({x + width_rect - 1, y});                   // top-right corner
+            points.push_back({x + width_rect - 1, y + height_rect - 1}); // bottom-right corner
+            points.push_back({x, y + height_rect - 1});                  // bottom-left corner
 
             Color color = parse_color(child->Attribute("fill")); // get color
 
@@ -282,15 +331,17 @@ namespace svg
             // check and apply transforms
             applyTransform(child, elem);
             // check if child has an id and add to elements_with_id map
-            if (child->Attribute("id") != NULL) {
+            if (child->Attribute("id") != NULL)
+            {
                 elements_with_id[child->Attribute("id")] = elem;
             }
             // push polygon into svg_elements vector
             svg_elements.push_back(elem);
         }
-        
+
         // GROUP
-        if (std::string(child->Name()) == "g") {
+        if (std::string(child->Name()) == "g")
+        {
 
             std::vector<SVGElement *> elements;
             for (XMLElement *group_child = child->FirstChildElement(); group_child != nullptr; group_child = group_child->NextSiblingElement())
@@ -305,7 +356,8 @@ namespace svg
             // check and apply transforms
             applyTransform(child, elem);
             // check if child has an id and add to elements_with_id map
-            if (child->Attribute("id") != NULL) {
+            if (child->Attribute("id") != NULL)
+            {
                 elements_with_id[child->Attribute("id")] = elem;
             }
             // push group into svg_elements vector
@@ -313,7 +365,8 @@ namespace svg
         }
 
         // USE
-        if (std::string(child->Name()) == "use") {
+        if (std::string(child->Name()) == "use")
+        {
             // get transform_origin point
             Point transform_origin = getTransformOrigin(child);
 
@@ -321,22 +374,22 @@ namespace svg
             std::string href = child->Attribute("href");
             href = href.erase(0, 1); // erase '#'
 
-            // get element to copy
+            // copy corresponding element
             auto elem = elements_with_id.at(href)->clone(transform_origin);
 
             // check and apply transforms
             applyTransform(child, elem);
             // check if child has an id and add to elements_with_id map
-            if (child->Attribute("id") != NULL) {
+            if (child->Attribute("id") != NULL)
+            {
                 elements_with_id[child->Attribute("id")] = elem;
             }
             // push polygon into svg_elements vector
             svg_elements.push_back(elem);
         }
-
     }
 
-    void readSVG(const string& svg_file, Point& dimensions, vector<SVGElement *>& svg_elements)
+    void readSVG(const string &svg_file, Point &dimensions, vector<SVGElement *> &svg_elements)
     {
         XMLDocument doc;
         XMLError r = doc.LoadFile(svg_file.c_str());
@@ -346,12 +399,14 @@ namespace svg
         }
         XMLElement *xml_elem = doc.RootElement();
 
+        // get image dimensions
         dimensions.x = xml_elem->IntAttribute("width");
         dimensions.y = xml_elem->IntAttribute("height");
-        
-        // POPULATING SVG_ELEMENTS VECTOR
 
-        std::map<std::string, SVGElement*> elements_with_id;
+        // create map of ids and elements that have ids
+        std::map<std::string, SVGElement *> elements_with_id;
+
+        // loop over all child elements
         for (XMLElement *child = xml_elem->FirstChildElement(); child != nullptr; child = child->NextSiblingElement())
         {
             getElement(child, svg_elements, elements_with_id);

@@ -50,5 +50,6 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp"
-    }
+    },
+    "editor.defaultFormatter": "xaver.clang-format"
 }
